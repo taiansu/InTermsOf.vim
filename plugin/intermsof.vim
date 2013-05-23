@@ -48,11 +48,11 @@ command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
 map <leader><C-r> :let g:rails_preloader="spring"
 
 ",e for execute entire file
-map <leader>e :call intermsof#executeCurrentFile()<cr>
+map <leader>er :call intermsof#executeCurrentFile()<cr>
 ",E for execute line
-map <leader>E :call intermsof#executeCurrentLine()<cr>
+map <leader>ed :call intermsof#executeCurrentLine()<cr>
 ",r stand for repeat
-map <leader>r :call intermsof#repeatPreviousExecution()<cr>
+map <leader>ee :call intermsof#repeatPreviousExecution()<cr>
 ",c stand for clear
-map <leader>c :call intermsof#clear()<cr>
+map <leader>ec :call intermsof#clear()<cr>
 
