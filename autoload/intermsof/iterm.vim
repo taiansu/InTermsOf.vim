@@ -3,9 +3,9 @@ if exists('g:autoloaded_intermsof_iterm')
 endif
 let g:autoloaded_intermsof_iterm = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " Execute Command in iTerm
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 function! intermsof#iterm#handle(command) abort
   "TODO fix MacVim
   return s:osascript(

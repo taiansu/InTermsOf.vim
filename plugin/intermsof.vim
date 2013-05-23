@@ -2,15 +2,15 @@
 " Maintainer:   taiansu
 " Version:      0.1
 
-if exists('g:autoloaded_intermsof')
+if exists('g:loaded_intermsof')
   finish
 endif
 
-let g:autoloaded_intermsof = 1
+let g:loaded_intermsof = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " SETUP GLOBAL VARIABLES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ito_known_types = [
                 \ { 'matcher': '_spec\.rb', 'type': 'rspec'},
@@ -36,9 +36,9 @@ end
 
 let g:focus_vim = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " COMMANDS AND KEY MAPPINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 command! ExecuteInTerminal call intermsof#executeInTerminal()
 command! ExecuteCurrentFile call intermsof#executeCurrentFile()
 command! ExecuteCurrentLine call intermsof#executeCurrentLine()
