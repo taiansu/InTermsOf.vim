@@ -1,53 +1,99 @@
-" autoload/dispatch.vim
 if exists('g:autoloaded_intermsof')
   finish
 endif
 
 let g:autoloaded_intermsof = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SETUP GLOBAL VARIABLES
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Find The Corresponding Command For File
+""""""""""""""""""""""""""""""""""""""""""""""""""
+function! intermsof#getFileType(file)
+    for obj in g:ito_known_types
+        if match(a:file, obj['matcher']) != -1
+            let l:type = obj['type']
+            return l:type
+            break
+        endif
+    endfor
+    echo "Don't know how to execute file: " . a:file
+    return 0
+endfunction
 
-let g:ito_known_types = [
-                \ { 'matcher': '_spec\.rb', 'type': 'rspec'},
-                \ { 'matcher': '_test\.rb', 'type': 'unit_test'},
-                \ { 'matcher': '\.rb', 'type': 'ruby'},
-                \ { 'matcher': '\.py', 'type': 'python'},
-                \ { 'matcher': '_test\.js', 'type': 'javascript_test'},
-                \ { 'matcher': '\.js', 'type': 'javascript'},
-                \ { 'matcher': '^clear$', 'type': 'clear'},
-            \ ]
+function! intermsof#getCommand(type)
+    if has_key(g:ito_known_commands, a:type) == 0
+        echo "Don't know how to execute type: ".a:type
+        return 0
+    else
+        return g:ito_known_commands[a:type]
+    endif
+endfunction
 
-let g:ito_known_commands = {
-                \ 'ruby': 'ruby',
-                \ 'python': 'python',
-                \ 'javascript_test': 'mocha',
-                \ 'javascript': 'node',
-                \ 'clear': ''
-            \}
+function! intermsof#getSpringCommand(type)
+    let g:ito_known_commands['rspec'] = 'spring rspec'
+    let g:ito_known_commands['unit_test'] = 'spring testunit'
+    return intermsof#getCommand(a:type)
+endfunction
 
-if !exists("g:rails_preloader")
-    let g:rails_preloader="none"
-end
+function! intermsof#getZeusCommand(type)
+    let g:ito_known_commands['rspec'] = 'zeus test'
+    let g:ito_known_commands['unit_test'] = 'zeus test'
+    return intermsof#getCommand(a:type)
+endfunction
 
-let g:focus_vim = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COMMANDS AND KEY MAPPINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-command! ExecuteInTerminal call intermsof#executeInTerminal()
-command! ExecuteCurrentFile call intermsof#executeCurrentFile()
-command! ExecuteCurrentLine call intermsof#executeCurrentLine()
-command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
+function! intermsof#getOrdinaryCommand(type)
+    let g:ito_known_commands['rspec'] = 'bundle exec rspec'
+    let g:ito_known_commands['unit_test'] = 'ruby -Itest'
+    return intermsof#getCommand(a:type)
+endfunction
 
-" key for changing the target_tty and rails_preloader
-map <leader><C-r> :let g:rails_preloader="spring"
+function! intermsof#dispatch(file)
+    let l:type = intermsof#getFileType(a:file)
 
-",e for execute entire file
-map <leader>e :call intermsof#executeCurrentFile()<cr>
-",E for execute line
-map <leader>E :call intermsof#executeCurrentLine()<cr>
-",r stand for repeat
-map <leader>r :call intermsof#repeatPreviousExecution()<cr>
-",c stand for clear
-map <leader>c :call intermsof#clear()<cr>
+    if g:rails_preloader == 'spring'
+        let l:command = intermsof#getSpringCommand(l:type)
+    elseif g:rails_preloader == 'zeus'
+        let l:command = intermsof#getZeusCommand(l:type)
+    else
+        let l:command = intermsof#getOrdinaryCommand(l:type)
+    endif
+
+   if exists("l:command")
+       let g:previous_ito_execution = l:command." ".a:file
+       call intermsof#iterm#handle(g:previous_ito_execution)
+   else
+       return
+   end
+
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Execute Command in Target Terminal
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" function! intermsof#executeInTerminal(command)
+"     silent execute ":up"
+"     silent execute g:osascript . " '" . a:command . "' " . g:target_tty . " &"
+"     silent execute ":redraw!"
+" endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Facade Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""
+function! intermsof#clearScreen()
+    call intermsof#dispatch('clear')
+endfunction
+
+function! intermsof#executeCurrentFile()
+    call intermsof#dispatch(expand("%"))
+endfunction
+
+function! intermsof#executeCurrentLine()
+    call intermsof#dispatch(expand("%") . ":" . line("."))
+endfunction
+
+function! intermsof#repeatPreviousExecution()
+    if exists("g:previous_ito_execution")
+        call intermsof#iterm#handle(g:previous_ito_execution)
+    else
+        echo "No previous execution exist. Use ,e or ,a to execute this file first."
+    endif
+endfunction
