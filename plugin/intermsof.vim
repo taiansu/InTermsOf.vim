@@ -1,6 +1,6 @@
 " InTermsOf.vim - Remote controls iTerm from MacVim
 " Maintainer:   taiansu
-" Version:      0.1
+" Version:      0.2
 
 if exists('g:loaded_intermsof')
   finish
