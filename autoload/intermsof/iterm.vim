@@ -16,10 +16,12 @@ function! intermsof#iterm#handle(command) abort
     \       'write text ("'.a:command.'" as string)',
     \     'end tell',
     \   'end tell',
-    \   g:focus_vim ? 'tell application "MacVim"' : '',
-    \   g:focus_vim ?   'activate' : '',
-    \   g:focus_vim ? 'end tell': '',
-    \ 'end tell')
+    \ 'end tell',
+    \ g:focus_vim ? 'tell application "MacVim"' : '',
+    \ g:focus_vim ?   'tell the last window' : '',
+    \ g:focus_vim ?     'activate' : '',
+    \ g:focus_vim ?   'end tell': '',
+    \ g:focus_vim ? 'end tell': '')
 endfunction
 
 function! s:osascript(...) abort
