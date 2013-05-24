@@ -7,55 +7,46 @@ let g:autoloaded_intermsof = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Find The Corresponding Command For File
 """"""""""""""""""""""""""""""""""""""""""""""""""
-function! intermsof#getFileType(file)
+function! intermsof#fetchCommand(file) abort
     for obj in g:ito_known_types
         if match(a:file, obj['matcher']) != -1
-            let l:type = obj['type']
-            return l:type
-            break
+            return obj['command']
         endif
     endfor
     echo "Don't know how to execute file: " . a:file
     return 0
 endfunction
 
-function! intermsof#getCommand(type)
-    if has_key(g:ito_known_commands, a:type) == 0
-        echo "Don't know how to execute type: ".a:type
-        return 0
-    else
-        return g:ito_known_commands[a:type]
-    endif
+function! intermsof#replaceCommand(type, new_command) abort
+    for obj in g:ito_known_types
+        if obj['type'] == a:type
+            let obj['command'] = a:new_command
+            return
+        endif
+    endfor
 endfunction
 
-function! intermsof#getSpringCommand(type)
-    let g:ito_known_commands['rspec'] = 'spring rspec'
-    let g:ito_known_commands['unit_test'] = 'spring testunit'
-    return intermsof#getCommand(a:type)
+function! intermsof#setSpringCommands()
+    call intermsof#replaceCommand('rspec', 'spring rspec')
+    call intermsof#replaceCommand('unit_test', 'spring testunit')
 endfunction
 
-function! intermsof#getZeusCommand(type)
-    let g:ito_known_commands['rspec'] = 'zeus test'
-    let g:ito_known_commands['unit_test'] = 'zeus test'
-    return intermsof#getCommand(a:type)
+function! intermsof#setZeusCommands()
+    call intermsof#replaceCommand('rspec', 'zeus test')
+    call intermsof#replaceCommand('unit_test', 'zeus test')
 endfunction
 
-function! intermsof#getOrdinaryCommand(type)
-    let g:ito_known_commands['rspec'] = 'bundle exec rspec'
-    let g:ito_known_commands['unit_test'] = 'ruby -Itest'
-    return intermsof#getCommand(a:type)
-endfunction
 
-function! intermsof#dispatch(file)
-    let l:type = intermsof#getFileType(a:file)
-
-    if g:rails_preloader == 'spring'
-        let l:command = intermsof#getSpringCommand(l:type)
+function! intermsof#dispatch(file) abort
+    if g:rails_preloader == 'none'
+        "Do nothing
+    elseif g:rails_preloader == 'spring'
+        call intermsof#setSpringCommands()
     elseif g:rails_preloader == 'zeus'
-        let l:command = intermsof#getZeusCommand(l:type)
-    else
-        let l:command = intermsof#getOrdinaryCommand(l:type)
+        call intermsof#setZeusCommands()
     endif
+
+    let l:command = intermsof#fetchCommand(a:file)
 
    if exists("l:command")
        let g:previous_ito_execution = l:command." ".a:file
@@ -65,15 +56,6 @@ function! intermsof#dispatch(file)
    end
 
 endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Execute Command in Target Terminal
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! intermsof#executeInTerminal(command)
-"     silent execute ":up"
-"     silent execute g:osascript . " '" . a:command . "' " . g:target_tty . " &"
-"     silent execute ":redraw!"
-" endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Facade Functions

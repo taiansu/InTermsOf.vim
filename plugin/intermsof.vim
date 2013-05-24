@@ -13,22 +13,14 @@ let g:loaded_intermsof = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:ito_known_types = [
-                \ { 'matcher': '_spec\.rb', 'type': 'rspec'},
-                \ { 'matcher': '_test\.rb', 'type': 'unit_test'},
-                \ { 'matcher': '\.rb', 'type': 'ruby'},
-                \ { 'matcher': '\.py', 'type': 'python'},
-                \ { 'matcher': '_test\.js', 'type': 'javascript_test'},
-                \ { 'matcher': '\.js', 'type': 'javascript'},
-                \ { 'matcher': '^clear$', 'type': 'clear'},
+                \ { 'type': 'rspec', 'matcher': '_spec\.rb', 'command': 'bundle exec rspec'},
+                \ { 'type': 'unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
+                \ { 'type': 'ruby', 'matcher': '\.rb', 'command': 'ruby'},
+                \ { 'type': 'python', 'matcher': '\.py', 'command': 'python'},
+                \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
+                \ { 'type': 'javascript', 'matcher': '\.js', 'command': 'javascript'},
+                \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'},
             \ ]
-
-let g:ito_known_commands = {
-                \ 'ruby': 'ruby',
-                \ 'python': 'python',
-                \ 'javascript_test': 'mocha',
-                \ 'javascript': 'node',
-                \ 'clear': ''
-            \}
 
 if !exists("g:rails_preloader")
     let g:rails_preloader="none"
