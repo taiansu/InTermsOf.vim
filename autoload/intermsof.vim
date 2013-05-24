@@ -53,10 +53,12 @@ function! intermsof#dispatch(file) abort
     let l:command = intermsof#fetchCommand(a:file)
 
    if exists("l:command")
-       let g:previous_ito_execution = l:command." ".a:file
+       if a:file != 'clear'
+           let g:previous_ito_execution = l:command." ".a:file
+       end
 
        for handler in g:intermsof_handlers
-           let response = call('intermsof#'.handler.'#handle', [g:previous_ito_execution])
+           let response = call('intermsof#'.handler.'#handle', [l:command." ".a:file])
            if !empty(response)
                redraw
                return 1
