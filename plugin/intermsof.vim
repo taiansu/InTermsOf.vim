@@ -54,5 +54,5 @@ map <leader>ed :call intermsof#executeCurrentLine()<cr>
 ",ee stand for repeat
 map <leader>ee :call intermsof#repeatPreviousExecution()<cr>
 ",ec stand for clear
-map <leader>ec :call intermsof#clear()<cr>
+map <leader>ec :call intermsof#clearScreen()<cr>
 
