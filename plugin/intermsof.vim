@@ -20,6 +20,11 @@ let g:ito_known_types = [
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
                 \ { 'type': 'javascript', 'matcher': '\.js', 'command': 'javascript'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'},
+                \ ]
+
+let g:intermsof_handlers = [
+            \ 'iterm',
+            \ 'terminal'
             \ ]
 
 if !exists("g:rails_preloader")

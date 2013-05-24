@@ -36,23 +36,35 @@ function! intermsof#setZeusCommands()
     call intermsof#replaceCommand('unit_test', 'zeus test')
 endfunction
 
-
-function! intermsof#dispatch(file) abort
-    if g:rails_preloader == 'none'
+function! intermsof#setPreloader(rails_preloader)
+    if a:rails_preloader == 'none'
         "Do nothing
-    elseif g:rails_preloader == 'spring'
+    elseif a:rails_preloader == 'spring'
         call intermsof#setSpringCommands()
-    elseif g:rails_preloader == 'zeus'
+    elseif a:rails_preloader == 'zeus'
         call intermsof#setZeusCommands()
     endif
+endfunction
 
+
+function! intermsof#dispatch(file) abort
+
+    call intermsof#setPreloader(g:rails_preloader)
     let l:command = intermsof#fetchCommand(a:file)
 
    if exists("l:command")
        let g:previous_ito_execution = l:command." ".a:file
-       call intermsof#iterm#handle(g:previous_ito_execution)
+
+       for handler in g:intermsof_handlers
+           let response = call('intermsof#'.handler.'#handle', [g:previous_ito_execution])
+           if !empty(response)
+               redraw
+               return 1
+           endif
+       endfor
+       return 0
    else
-       return
+       return 0
    end
 
 endfunction

@@ -1,24 +1,20 @@
-if exists('g:autoloaded_intermsof_iterm')
+if exists('g:autoloaded_intermsof_terminal')
   finish
 endif
-let g:autoloaded_intermsof_iterm = 1
+let g:autoloaded_intermsof_terminal = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Execute Command in iTerm
 """"""""""""""""""""""""""""""""""""""""""""""""""
 function! intermsof#iterm#handle(command) abort
-  if $TERM_PROGRAM !=# 'iTerm.app' && !(has('gui_macvim') && has('gui_running'))
+  if $TERM_PROGRAM !=# 'Terminal.app' && !(has('gui_macvim') && has('gui_running'))
     return 0
   endif
 
   return s:osascript(
-    \ 'tell application "iTerm"',
+    \ 'tell application "Terminal"',
     \   'activate',
-    \   'tell the first terminal',
-    \     'tell current session',
-    \       'write text ("'.a:command.'" as string)',
-    \     'end tell',
-    \   'end tell',
+    \   'set shell to do script "'.a:command.'" in window 1',
     \ 'end tell',
     \ g:focus_vim ? 'tell application "MacVim"' : '',
     \ g:focus_vim ?   'tell the last window' : '',
