@@ -1,4 +1,4 @@
 InTermsOf.vim
 =============
 
-Remote controls iTerm from MacVim
+Execute commands in iTerm/Terminal from MacVim
