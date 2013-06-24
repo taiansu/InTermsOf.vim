@@ -18,7 +18,7 @@ let g:ito_known_types = [
                 \ { 'type': 'ruby', 'matcher': '\.rb', 'command': 'ruby'},
                 \ { 'type': 'python', 'matcher': '\.py', 'command': 'python'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
-                \ { 'type': 'javascript', 'matcher': '\.js', 'command': 'javascript'},
+                \ { 'type': 'javascript', 'matcher': '\.js', 'command': 'node'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'},
                 \ ]
 
