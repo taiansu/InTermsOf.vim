@@ -14,11 +14,12 @@ let g:loaded_intermsof = 1
 
 let g:ito_known_types = [
                 \ { 'type': 'rspec', 'matcher': '_spec\.rb', 'command': 'bundle exec rspec'},
-                \ { 'type': 'unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
-                \ { 'type': 'ruby', 'matcher': '\.rb', 'command': 'ruby'},
-                \ { 'type': 'python', 'matcher': '\.py', 'command': 'python'},
+                \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
+                \ { 'type': 'plain_ruby', 'matcher': '\.rb', 'command': 'ruby'},
+                \ { 'type': 'plain_python', 'matcher': '\.py', 'command': 'python'},
+                \ { 'type': 'javascript_spec', 'matcher': '_spec\.js', 'command': 'mocha'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
-                \ { 'type': 'javascript', 'matcher': '\.js', 'command': 'node'},
+                \ { 'type': 'plain_javascript', 'matcher': '\.js', 'command': 'node'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'},
                 \ ]
 
