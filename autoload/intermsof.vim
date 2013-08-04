@@ -52,22 +52,22 @@ function! intermsof#dispatch(file) abort
     call intermsof#setPreloader(g:rails_preloader)
     let l:command = intermsof#fetchCommand(a:file)
 
-   if exists("l:command")
-       if a:file != 'clear'
+    if exists("l:command")
+        if a:file != 'clear'
            let g:previous_ito_execution = l:command." ".a:file
-       end
+        end
 
-       for handler in g:intermsof_handlers
+        for handler in g:intermsof_handlers
            let response = call('intermsof#'.handler.'#handle', [l:command." ".a:file])
            if !empty(response)
                redraw
                return 1
            endif
-       endfor
-       return 0
-   else
-       return 0
-   end
+        endfor
+        return 0
+    else
+        return 0
+    end
 
 endfunction
 
