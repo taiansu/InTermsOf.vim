@@ -90,6 +90,6 @@ function! intermsof#repeatPreviousExecution()
     if exists("g:previous_ito_execution")
         call intermsof#iterm#handle(g:previous_ito_execution)
     else
-        echo "No previous execution exist. Use ,e or ,a to execute this file first."
+        call intermsof#executeCurrentFile()
     endif
 endfunction
