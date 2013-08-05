@@ -45,12 +45,12 @@ command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
 " key for changing the target_tty and rails_preloader
 map <leader><C-r> :let g:rails_preloader="spring"
 
-",er for execute entire file
-map <leader>er :call intermsof#executeCurrentFile()<cr>
-",ed for execute line
+",er stand for repeat
+map <leader>er :call intermsof#repeatPreviousExecution()<cr>
+",ec for execute current file
+map <leader>ec :call intermsof#executeCurrentFile()<cr>
+",ed for execute current line
 map <leader>ed :call intermsof#executeCurrentLine()<cr>
-",ee stand for repeat
-map <leader>ee :call intermsof#repeatPreviousExecution()<cr>
-",ec stand for clear
-map <leader>ec :call intermsof#clearScreen()<cr>
+",ee stand for clear the terminal screen
+map <leader>ee :call intermsof#clearScreen()<cr>
 
