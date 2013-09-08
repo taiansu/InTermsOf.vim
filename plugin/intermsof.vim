@@ -48,9 +48,9 @@ map <leader><C-r> :let g:rails_preloader="spring"
 ",er stand for repeat
 map <leader>er :call intermsof#repeatPreviousExecution()<cr>
 ",ec for execute current file
-map <leader>ec :call intermsof#executeCurrentFile()<cr>
+map <leader>ef :call intermsof#executeCurrentFile()<cr>
 ",ed for execute current line
-map <leader>ed :call intermsof#executeCurrentLine()<cr>
+map <leader>el :call intermsof#executeCurrentLine()<cr>
 ",ee stand for clear the terminal screen
-map <leader>ee :call intermsof#clearScreen()<cr>
+map <leader>ec :call intermsof#clearScreen()<cr>
 
