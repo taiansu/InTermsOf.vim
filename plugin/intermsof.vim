@@ -22,9 +22,9 @@ let g:ito_known_types = [
                 \ { 'type': 'javascript_spec', 'matcher': '_spec\.js', 'command': 'mocha'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
                 \ { 'type': 'plain_javascript', 'matcher': '\.js', 'command': 'node'},
-                \ { 'type': 'plain_clojure', 'matcher': '\.clj', 'command': 'lein exec'}
-                \ { 'type': 'elixir_unittest', 'matcher': '\.exs', 'command': 'elixir'}
-                \ { 'type': 'plain_elixir', 'matcher': '\.ex', 'command': 'elixir'}
+                \ { 'type': 'plain_clojure', 'matcher': '\.clj', 'command': 'lein exec'},
+                \ { 'type': 'elixir_unittest', 'matcher': '\.exs', 'command': 'elixir'},
+                \ { 'type': 'plain_elixir', 'matcher': '\.ex', 'command': 'elixir'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'}
                 \ ]
 
