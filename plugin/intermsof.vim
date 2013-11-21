@@ -17,10 +17,15 @@ let g:ito_known_types = [
                 \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
                 \ { 'type': 'plain_ruby', 'matcher': '\.rb', 'command': 'ruby'},
                 \ { 'type': 'plain_python', 'matcher': '\.py', 'command': 'python'},
+                \ { 'type': 'plain_coffee-script', 'matcher': '\.coffee', 'command': 'coffee'},
+                \ { 'type': 'plain_LiveScript', 'matcher': '\.ls', 'command': 'livescript'},
                 \ { 'type': 'javascript_spec', 'matcher': '_spec\.js', 'command': 'mocha'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
                 \ { 'type': 'plain_javascript', 'matcher': '\.js', 'command': 'node'},
-                \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'},
+                \ { 'type': 'plain_clojure', 'matcher': '\.clj', 'command': 'lein exec'}
+                \ { 'type': 'elixir_unittest', 'matcher': '\.exs', 'command': 'elixir'}
+                \ { 'type': 'plain_elixir', 'matcher': '\.ex', 'command': 'elixir'}
+                \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'}
                 \ ]
 
 let g:intermsof_handlers = [
