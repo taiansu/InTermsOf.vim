@@ -48,7 +48,7 @@ command! ExecuteCurrentLine call intermsof#executeCurrentLine()
 command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
 
 " key for changing the target_tty and rails_preloader
-map <leader><C-r> :let g:rails_preloader="spring"
+map <leader><C-r> :let g:rails_preloader="zeus"
 
 ",er stand for repeat
 map <leader>er :call intermsof#repeatPreviousExecution()<cr>
