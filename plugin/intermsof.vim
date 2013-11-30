@@ -25,6 +25,7 @@ let g:ito_known_types = [
                 \ { 'type': 'plain_clojure', 'matcher': '\.clj', 'command': 'lein exec'},
                 \ { 'type': 'elixir_unittest', 'matcher': '\.exs', 'command': 'elixir'},
                 \ { 'type': 'plain_elixir', 'matcher': '\.ex', 'command': 'elixir'},
+                \ { 'type': 'plain_go', 'matcher': '\.go', 'command': 'go run'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'}
                 \ ]
 
