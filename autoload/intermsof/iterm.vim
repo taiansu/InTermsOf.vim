@@ -20,11 +20,11 @@ function! intermsof#iterm#handle(command) abort
     \     'end tell',
     \   'end tell',
     \ 'end tell',
-    \ g:focus_vim ? 'tell application "MacVim"' : '',
-    \ g:focus_vim ?   'tell the last window' : '',
-    \ g:focus_vim ?     'activate' : '',
-    \ g:focus_vim ?   'end tell': '',
-    \ g:focus_vim ? 'end tell': '')
+    \ g:refocus_vim ? 'tell application "MacVim"' : '',
+    \ g:refocus_vim ?   'tell the last window' : '',
+    \ g:refocus_vim ?     'activate' : '',
+    \ g:refocus_vim ?   'end tell': '',
+    \ g:refocus_vim ? 'end tell': '')
 endfunction
 
 function! s:osascript(...) abort

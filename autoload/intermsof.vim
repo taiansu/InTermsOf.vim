@@ -93,3 +93,10 @@ function! intermsof#repeatPreviousExecution()
         call intermsof#executeCurrentFile()
     endif
 endfunction
+
+function! intermsof#executeAll()
+  let spec_dir = matchstr(%:p:h, '.+(spec|test)')
+  if !empty(spec_dir)
+    call intermsof#dispatch(expand("%:p:h"))
+  endif
+endfunction

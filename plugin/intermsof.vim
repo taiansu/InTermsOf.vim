@@ -1,6 +1,6 @@
 " InTermsOf.vim - Remote controls iTerm from MacVim
 " Maintainer:   taiansu
-" Version:      0.2
+" Version:      0.3
 
 if exists('g:loaded_intermsof')
   finish
@@ -14,11 +14,13 @@ let g:loaded_intermsof = 1
 
 let g:ito_known_types = [
                 \ { 'type': 'rspec', 'matcher': '_spec\.rb', 'command': 'bundle exec rspec'},
+                \ { 'type': 'rspec_dir', 'matcher': 'spec', 'command': 'bundle exec rspec'},
                 \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
+                \ { 'type': 'ruby_unit_test_dir', 'matcher': 'test', 'commad': 'ruby -Itest'},
                 \ { 'type': 'plain_ruby', 'matcher': '\.rb', 'command': 'ruby'},
                 \ { 'type': 'plain_python', 'matcher': '\.py', 'command': 'python'},
                 \ { 'type': 'plain_coffee-script', 'matcher': '\.coffee', 'command': 'coffee'},
-                \ { 'type': 'plain_LiveScript', 'matcher': '\.ls', 'command': 'livescript'},
+                \ { 'type': 'plain_LiveScript', 'matcher': '\.ls', 'command': 'lsc'},
                 \ { 'type': 'javascript_spec', 'matcher': '_spec\.js', 'command': 'mocha'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
                 \ { 'type': 'plain_javascript', 'matcher': '\.js', 'command': 'node'},
@@ -38,7 +40,7 @@ if !exists("g:rails_preloader")
     let g:rails_preloader="none"
 end
 
-let g:focus_vim = 1
+let g:refocus_vim = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " COMMANDS AND KEY MAPPINGS
@@ -55,8 +57,10 @@ map <leader><C-e> :let g:rails_preloader="spring"
 map <leader>er :call intermsof#repeatPreviousExecution()<cr>
 ",ec for execute current file
 map <leader>ef :call intermsof#executeCurrentFile()<cr>
-",ed for execute current line
+",ee stand for execute current line
 map <leader>ee :call intermsof#executeCurrentLine()<cr>
-",ee stand for clear the terminal screen
+",ea stand for run all specs
+map <leader>ee :call intermsof#executeAll()<cr>
+",ed for clear the terminal screen
 map <leader>ed :call intermsof#clearScreen()<cr>
 
