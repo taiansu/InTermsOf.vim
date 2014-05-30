@@ -45,9 +45,9 @@ let g:refocus_vim = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " COMMANDS AND KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""
-command! ExecuteInTerminal call intermsof#executeInTerminal()
-command! ExecuteCurrentFile call intermsof#executeCurrentFile()
-command! ExecuteCurrentLine call intermsof#executeCurrentLine()
+command! RunInTerminal call intermsof#runInTerminal()
+command! RunCurrentFile call intermsof#runCurrentFile()
+command! RunCurrentLine call intermsof#runCurrentLine()
 command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
 
 " key for changing the target_tty and rails_preloader
@@ -55,12 +55,12 @@ map <leader><C-e> :let g:rails_preloader="spring"
 
 ",er stand for repeat
 map <leader>er :call intermsof#repeatPreviousExecution()<cr>
-",ec for execute current file
-map <leader>ef :call intermsof#executeCurrentFile()<cr>
-",ee stand for execute current line
-map <leader>ee :call intermsof#executeCurrentLine()<cr>
+",ec for run current file
+map <leader>ef :call intermsof#runCurrentFile()<cr>
+",ee stand for run current line
+map <leader>ee :call intermsof#runCurrentLine()<cr>
 ",ea stand for run all specs
-map <leader>ee :call intermsof#executeAll()<cr>
+map <leader>ee :call intermsof#runAll()<cr>
 ",ed for clear the terminal screen
 map <leader>ed :call intermsof#clearScreen()<cr>
 

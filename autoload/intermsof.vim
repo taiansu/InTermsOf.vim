@@ -13,7 +13,7 @@ function! intermsof#fetchCommand(file) abort
             return obj['command']
         endif
     endfor
-    echo "Don't know how to execute file: " . a:file
+    echo "Don't know how to run this file: " . a:file
     return 0
 endfunction
 
@@ -78,11 +78,11 @@ function! intermsof#clearScreen()
     call intermsof#dispatch('clear')
 endfunction
 
-function! intermsof#executeCurrentFile()
+function! intermsof#runCurrentFile()
     call intermsof#dispatch(expand("%"))
 endfunction
 
-function! intermsof#executeCurrentLine()
+function! intermsof#runCurrentLine()
     call intermsof#dispatch(expand("%") . ":" . line("."))
 endfunction
 
@@ -90,11 +90,11 @@ function! intermsof#repeatPreviousExecution()
     if exists("g:previous_ito_execution")
         call intermsof#iterm#handle(g:previous_ito_execution)
     else
-        call intermsof#executeCurrentFile()
+        call intermsof#runCurrentFile()
     endif
 endfunction
 
-function! intermsof#executeAll()
+function! intermsof#runAll()
   let spec_dir = matchstr(%:p:h, '.+(spec|test)')
   if !empty(spec_dir)
     call intermsof#dispatch(expand("%:p:h"))

@@ -4,7 +4,7 @@ endif
 let g:autoloaded_intermsof_iterm = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Execute Command in iTerm
+" Run Command in iTerm
 """"""""""""""""""""""""""""""""""""""""""""""""""
 function! intermsof#iterm#handle(command) abort
   if $TERM_PROGRAM !=# 'iTerm.app' && !(has('gui_macvim') && has('gui_running'))
