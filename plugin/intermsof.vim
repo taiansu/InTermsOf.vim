@@ -25,7 +25,8 @@ let g:ito_known_types = [
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js', 'command': 'mocha'},
                 \ { 'type': 'plain_javascript', 'matcher': '\.js', 'command': 'node'},
                 \ { 'type': 'plain_clojure', 'matcher': '\.clj', 'command': 'lein exec'},
-                \ { 'type': 'elixir_unittest', 'matcher': '\.exs', 'command': 'elixir'},
+                \ { 'type': 'elixir_unittest', 'matcher': '_spec\.exs', 'command': 'elixir'},
+                \ { 'type': 'elixir_script', 'matcher': '\.exs', 'command': 'elixir'},
                 \ { 'type': 'plain_elixir', 'matcher': '\.ex', 'command': 'elixir'},
                 \ { 'type': 'plain_go', 'matcher': '\.go', 'command': 'go run'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'}
@@ -49,18 +50,3 @@ command! RunInTerminal call intermsof#runInTerminal()
 command! RunCurrentFile call intermsof#runCurrentFile()
 command! RunCurrentLine call intermsof#runCurrentLine()
 command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()
-
-" key for changing the target_tty and rails_preloader
-map <leader><C-e> :let g:rails_preloader="spring"
-
-",er stand for repeat
-map <leader>er :call intermsof#repeatPreviousExecution()<cr>
-",ec for run current file
-map <leader>ef :call intermsof#runCurrentFile()<cr>
-",ee stand for run current line
-map <leader>ee :call intermsof#runCurrentLine()<cr>
-",ea stand for run all specs
-map <leader>ee :call intermsof#runAll()<cr>
-",ed for clear the terminal screen
-map <leader>ed :call intermsof#clearScreen()<cr>
-
