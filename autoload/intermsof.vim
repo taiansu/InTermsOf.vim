@@ -104,18 +104,14 @@ endfunction
 " Core Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
 function! intermsof#run(...) abort
-  let b:osascript = intermsof#osascript(join(a:000,' '))
-  return s:systemCall(b:osascript)
-endfunction
-
-function! s:systemCall(script) abort
-  call system(a:script)
+  let l:osascript = intermsof#osascript(join(a:000,' '))
+  call system(l:osascript)
   return !v:shell_error
 endfunction
 
 function! intermsof#osascript(command) abort
   if $TERM_PROGRAM ==? "iTerm.app"
-    return 'osascript'.join(map([
+    let l:script = [
       \ 'tell application "iTerm"',
       \   'activate',
       \   'tell the first terminal',
@@ -123,24 +119,34 @@ function! intermsof#osascript(command) abort
       \       'write text ("'.a:command.'" as string)',
       \     'end tell',
       \   'end tell',
-      \ 'end tell',
-      \ g:refocus_macvim ? 'tell application "MacVim" tell the last window activate end tell end tell' : ''],
-    \'" -e ".shellescape(v:val)'), '')
+      \ 'end tell'
+      \]
   elseif $TERM_PROGRAM ==? "Apple_Terminal"
-    return 'osascript'.join(map([
+    let l:script = [
       \ 'on is_running(appName)',
       \   'tell application "System Events" to (name of processes) contains appName',
       \ 'end is_running',
       \ 'set trmRunning to is_running("Terminal")',
       \ 'tell application "Terminal"',
       \   'if trmRunning then',
-      \     'do script ("'.a:command.'") in window 0',
+      \     'do script ("'.a:command.'") in selected tab of window 0',
       \   'else',
       \     'do script ("'.a:command.'")',
       \     'activate',
       \   'end if',
       \ 'end tell',
-      \ g:refocus_macvim ? 'tell application "MacVim" tell the last window activate end tell end tell' : ''],
-    \'" -e ".shellescape(v:val)'), '')
+      \]
+  endif " TODO: should append full path when reactivate the terminal
+
+  if g:refocus_macvim
+    let l:script += [
+          \ 'tell application "MacVim"',
+          \   'tell the last window',
+          \     'activate',
+          \   'end tell',
+          \'end tell'
+          \]
   endif
+
+  return 'osascript'.join(map(l:script, '" -e ".shellescape(v:val)'),'')
 endfunction

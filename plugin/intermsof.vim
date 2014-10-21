@@ -1,6 +1,6 @@
 " InTermsOf.vim - Remote controls iTerm from MacVim
 " Maintainer:   taiansu
-" Version:      1.0
+" Version:      1.0.1
 
 if exists('g:loaded_intermsof')
   finish
@@ -31,11 +31,6 @@ let g:intermsof_known_types = [
                 \ { 'type': 'plain_go', 'matcher': '\.go', 'command': 'go run'},
                 \ { 'type': 'clear_screen', 'matcher': '^clear$', 'command': 'clear'}
                 \ ]
-
-let g:intermsof_handlers = [
-            \ 'iterm',
-            \ 'terminal'
-            \ ]
 
 if !exists("g:rails_preloader")
     let g:rails_preloader="none"
