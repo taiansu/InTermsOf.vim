@@ -1,6 +1,6 @@
 " InTermsOf.vim - Remote controls iTerm from MacVim
 " Maintainer:   taiansu
-" Version:      0.3
+" Version:      1.0
 
 if exists('g:loaded_intermsof')
   finish
@@ -12,7 +12,7 @@ let g:loaded_intermsof = 1
 " SETUP GLOBAL VARIABLES
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:ito_known_types = [
+let g:intermsof_known_types = [
                 \ { 'type': 'rspec', 'matcher': '_spec\.rb', 'command': 'bundle exec rspec'},
                 \ { 'type': 'rspec_dir', 'matcher': 'spec', 'command': 'bundle exec rspec'},
                 \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
@@ -41,12 +41,11 @@ if !exists("g:rails_preloader")
     let g:rails_preloader="none"
 end
 
-let g:refocus_vim = 0
+let g:refocus_macvim = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " COMMANDS AND KEY MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""
-command! RunInTerminal call intermsof#runInTerminal()
 command! RunCurrentFile call intermsof#runCurrentFile()
 command! RunCurrentLine call intermsof#runCurrentLine()
 command! RepeatPreviousExecution call intermsof#repeatPreviousExecution()

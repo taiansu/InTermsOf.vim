@@ -8,7 +8,7 @@ let g:autoloaded_intermsof = 1
 " Find The Corresponding Command For File
 """"""""""""""""""""""""""""""""""""""""""""""""""
 function! intermsof#fetchCommand(file) abort
-    for obj in g:ito_known_types
+    for obj in g:intermsof_known_types
         if match(a:file, obj['matcher']) != -1
             return obj['command']
         endif
@@ -18,7 +18,7 @@ function! intermsof#fetchCommand(file) abort
 endfunction
 
 function! intermsof#replaceCommand(type, new_command) abort
-    for obj in g:ito_known_types
+    for obj in g:intermsof_known_types
         if obj['type'] == a:type
             let obj['command'] = a:new_command
             return
@@ -54,17 +54,16 @@ function! intermsof#dispatch(file) abort
 
     if exists("l:command")
         if a:file != 'clear'
-           let g:previous_ito_execution = l:command." ".a:file
+           let g:previous_intermsof_execution = l:command." ".a:file
         end
 
-        for handler in g:intermsof_handlers
-           let response = call('intermsof#'.handler.'#handle', [l:command." ".a:file])
-           if !empty(response)
-               redraw
-               return 1
-           endif
-        endfor
-        return 0
+        let response = call('intermsof#run', [l:command." ".a:file])
+        if !empty(response)
+          redraw
+          return 1
+        else
+          return 0
+        endif
     else
         return 0
     end
@@ -87,8 +86,8 @@ function! intermsof#runCurrentLine()
 endfunction
 
 function! intermsof#repeatPreviousExecution()
-    if exists("g:previous_ito_execution")
-        call intermsof#iterm#handle(g:previous_ito_execution)
+    if exists("g:previous_intermsof_execution")
+        call intermsof#iterm#handle(g:previous_intermsof_execution)
     else
         call intermsof#runCurrentFile()
     endif
@@ -98,5 +97,50 @@ function! intermsof#runAll()
   let spec_dir = matchstr(%:p:h, '.+(spec|test)')
   if !empty(spec_dir)
     call intermsof#dispatch(expand("%:p:h"))
+  endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Core Functions
+""""""""""""""""""""""""""""""""""""""""""""""""""
+function! intermsof#run(...) abort
+  let b:osascript = intermsof#osascript(join(a:000,' '))
+  return s:systemCall(b:osascript)
+endfunction
+
+function! s:systemCall(script) abort
+  call system(a:script)
+  return !v:shell_error
+endfunction
+
+function! intermsof#osascript(command) abort
+  if $TERM_PROGRAM ==? "iTerm.app"
+    return 'osascript'.join(map([
+      \ 'tell application "iTerm"',
+      \   'activate',
+      \   'tell the first terminal',
+      \     'tell current session',
+      \       'write text ("'.a:command.'" as string)',
+      \     'end tell',
+      \   'end tell',
+      \ 'end tell',
+      \ g:refocus_macvim ? 'tell application "MacVim" tell the last window activate end tell end tell' : ''],
+    \'" -e ".shellescape(v:val)'), '')
+  elseif $TERM_PROGRAM ==? "Apple_Terminal"
+    return 'osascript'.join(map([
+      \ 'on is_running(appName)',
+      \   'tell application "System Events" to (name of processes) contains appName',
+      \ 'end is_running',
+      \ 'set trmRunning to is_running("Terminal")',
+      \ 'tell application "Terminal"',
+      \   'if trmRunning then',
+      \     'do script ("'.a:command.'") in window 0',
+      \   'else',
+      \     'do script ("'.a:command.'")',
+      \     'activate',
+      \   'end if',
+      \ 'end tell',
+      \ g:refocus_macvim ? 'tell application "MacVim" tell the last window activate end tell end tell' : ''],
+    \'" -e ".shellescape(v:val)'), '')
   endif
 endfunction
