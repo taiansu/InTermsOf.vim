@@ -15,8 +15,8 @@ let g:loaded_intermsof = 1
 let g:intermsof_known_types = [
                 \ { 'type': 'rspec', 'matcher': '_spec\.rb', 'command': 'bundle exec rspec'},
                 \ { 'type': 'rspec_dir', 'matcher': 'spec', 'command': 'bundle exec rspec'},
-                \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'commad': 'ruby -Itest'},
-                \ { 'type': 'ruby_unit_test_dir', 'matcher': 'test', 'commad': 'ruby -Itest'},
+                \ { 'type': 'ruby_unit_test', 'matcher': '_test\.rb', 'command': 'ruby -Itest'},
+                \ { 'type': 'ruby_unit_test_dir', 'matcher': 'test', 'command': 'ruby -Itest'},
                 \ { 'type': 'plain_ruby', 'matcher': '\.rb', 'command': 'ruby'},
                 \ { 'type': 'plain_python', 'matcher': '\.py', 'command': 'python'},
                 \ { 'type': 'plain_coffee-script', 'matcher': '\.coffee', 'command': 'coffee'},
