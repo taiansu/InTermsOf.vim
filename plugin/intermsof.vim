@@ -13,7 +13,7 @@ let g:loaded_intermsof = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:intermsof_known_types = [
-                \ { 'type': 'jest_test', 'matcher': '-test\.(js\|coffee\|ls)$', 'command': 'npm test'},
+                \ { 'type': 'jest_test', 'matcher': '-test\.\(js\|coffee\|ls\)$', 'command': 'npm test'},
                 \ { 'type': 'javascript_spec', 'matcher': '_spec\.js$', 'command': 'mocha'},
                 \ { 'type': 'javascript_test', 'matcher': '_test\.js$', 'command': 'mocha'},
                 \ { 'type': 'rspec', 'matcher': '_spec\.rb$', 'command': 'bundle exec rspec'},
